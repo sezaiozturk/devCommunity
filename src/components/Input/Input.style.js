@@ -13,10 +13,11 @@ export default StyleSheet.create({
     },
     input:{
         borderColor:COLORS.gray,
+        color:COLORS.gray200,
         fontWeight:'bold',
         borderRadius:10,
         borderWidth:1,
         fontSize:14,
-        padding:10
+        padding:10,
     }
 })

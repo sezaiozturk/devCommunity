@@ -1,24 +1,25 @@
-import { View, Text, SafeAreaView, Image } from "react-native";
+import { View, Text ,SafeAreaView,Image} from "react-native";
 import React from "react";
-import styles from './Login.style'
+import styles from './Signup.style'
 import Input from '../../components/Input'
 import BoxContainer from '../../components/BoxContainer'
 import Button from "../../components/Button";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-const Login = () => {
+const Signup = () => {
   return (
     <SafeAreaView style={styles.container}>
         <View style={styles.titleContainer}>
-            <Text style={styles.title}>Log in</Text>
+            <Text style={styles.title}>Sign up</Text>
         </View>
         <View style={styles.boxContainer}>
             <BoxContainer>
                 <View style={{gap:30}}> 
                     <Input title="Email" placeholder={"Enter your email"}/>
                     <Input title="Password" placeholder={"Enter your password"} secure/>
-                    <Button title={"Log in"}/>
-                    <Text style={styles.question}>Log in with existing account?</Text>
+                    <Input title="Password(Again)" placeholder={"Enter your password"} secure/>
+                    <Button title={"Sign up"}/>
+                    <Text style={styles.question}>Continue with existing account ?</Text>
                     <View style={styles.logoContainer}>
                         <View style={styles.iconContainer}>
                             <Image
@@ -31,8 +32,8 @@ const Login = () => {
                         </View>
                     </View>
                     <View style={styles.questionContainer}>
-                        <Text style={styles.question}>Don’t have an account?</Text>
-                        <Text style={styles.route}>Sign up</Text>
+                        <Text style={styles.question}>Already have an account?</Text>
+                        <Text style={styles.route}>Log in</Text>
                     </View>
                 </View>
             </BoxContainer>
@@ -41,4 +42,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

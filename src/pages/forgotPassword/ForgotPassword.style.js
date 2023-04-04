@@ -13,13 +13,13 @@ export default StyleSheet.create({
     title:{
         color:COLORS.gray100,
         fontWeight:'bold',
-        fontSize:36
+        fontSize:36,
     },
     boxContainer:{
         position:"absolute",
         bottom:0,
         right:0,
-        left:0
+        left:0,
     },
     questionContainer:{
         justifyContent:'center',
@@ -38,20 +38,7 @@ export default StyleSheet.create({
         fontWeight:'bold',
         fontSize:14,
     },
-    logoContainer:{
-        justifyContent:'space-evenly',
-        paddingHorizontal:15,
-        flexDirection:'row',
-    },
-    iconContainer:{
-        borderColor:COLORS.gray,
-        paddingHorizontal:40,
-        borderRadius:3,
-        paddingVertical:15,
-        borderWidth:1
-    },
-    logo:{
-        height:30,
-        width:30,
+    space:{
+        paddingVertical:140
     }
 })
