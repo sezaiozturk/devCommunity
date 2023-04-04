@@ -1,0 +1,53 @@
+import { StyleSheet } from "react-native";
+import { COLORS } from "../../colors/Colors";
+
+export default StyleSheet.create({
+    container:{
+        backgroundColor:COLORS.orange,
+        justifyContent:'space-between',
+        flex:1,
+    },
+    titleContainer:{
+        alignItems:'center',
+        padding:40,
+    },
+    title:{
+        color:COLORS.gray100,
+        fontWeight:'bold',
+        fontSize:36
+    },
+    boxContainer:{
+    },
+    questionContainer:{
+        justifyContent:'center',
+        flexDirection:'row',
+        gap:10,
+    },
+    question:{
+        color:COLORS.gray300,
+        textAlign:"center",
+        fontWeight:'bold',
+        fontSize:14,
+    },
+    route:{
+        color:COLORS.orange100,
+        textAlign:"center",
+        fontWeight:'bold',
+        fontSize:14,
+    },
+    logoContainer:{
+        justifyContent:'space-evenly',
+        paddingHorizontal:15,
+        flexDirection:'row',
+    },
+    iconContainer:{
+        borderColor:COLORS.gray,
+        paddingHorizontal:40,
+        paddingVertical:15,
+        borderWidth:1
+    },
+    logo:{
+        height:30,
+        width:30,
+    }
+})
