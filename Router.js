@@ -7,13 +7,21 @@ import ForgotPassword from "./src/pages/forgotPassword";
 
 const Stack=createStackNavigator();
 
+const AuthStack=()=>{
+  return(
+    <Stack.Navigator screenOptions={{headerShown:false}}>
+        <Stack.Screen name="LoginScreen" component={Login}/>
+        <Stack.Screen name="SignupScreen" component={Signup}/>
+        <Stack.Screen name="ForgotPasswordScreen" component={ForgotPassword}/>
+    </Stack.Navigator>
+  )
+}
+
 const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown:false}}>
-        <Stack.Screen name="LoginScreen" component={Login}/>
-        <Stack.Screen name="SignupScreen" component={Signup}/>
-        <Stack.Screen name="ForgotPasswordScreen" component={ForgotPassword}/>
+        <Stack.Screen name="AuthStack" component={AuthStack}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
