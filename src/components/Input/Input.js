@@ -1,17 +1,19 @@
-import { View, Text, TextInput } from "react-native";
-import React from "react";
-import styles from './Input.style'
-import { COLORS } from "../../colors/Colors";
+import {View, Text, TextInput} from 'react-native';
+import React from 'react';
+import styles from './Input.style';
+import {COLORS} from '../../colors/Colors';
 
-const Input = ({title,placeholder,secure}) => {
+const Input = ({title, placeholder, secure, value, onChangeText}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
-      <TextInput 
+      <TextInput
         placeholder={placeholder}
         placeholderTextColor={COLORS.gray}
+        value={value}
         style={styles.input}
-        secureTextEntry={secure?true:false}
+        onChangeText={onChangeText}
+        secureTextEntry={secure ? true : false}
       />
     </View>
   );
