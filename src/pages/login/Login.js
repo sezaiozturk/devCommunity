@@ -6,10 +6,16 @@ import BoxContainer from '../../components/BoxContainer';
 import Button from '../../components/Button';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Formik} from 'formik';
+import auth from '@react-native-firebase/auth';
+//npx react-native run-ios --simulator="iPhone 14 Pro"
 
 const Login = ({navigation}) => {
-  function handleLogin(values) {
-    console.log(values.password);
+  function handleLogin({email, password}) {
+    auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        navigation.navigate('ProfileSettingsScreen');
+      });
   }
   return (
     <SafeAreaView style={styles.container}>

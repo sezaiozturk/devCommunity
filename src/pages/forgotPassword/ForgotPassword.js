@@ -6,10 +6,15 @@ import BoxContainer from '../../components/BoxContainer';
 import Button from '../../components/Button';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Formik} from 'formik';
+import auth from '@react-native-firebase/auth';
 
 const ForgotPassword = ({navigation}) => {
-  function handleForgotPassword(values) {
-    console.log(values);
+  function handleForgotPassword({email}) {
+    auth()
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        navigation.navigate('LoginScreen');
+      });
   }
   return (
     <SafeAreaView style={styles.container}>

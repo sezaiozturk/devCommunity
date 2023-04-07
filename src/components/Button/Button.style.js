@@ -7,7 +7,6 @@ export default StyleSheet.create({
     marginHorizontal: 10,
     alignItems: 'center',
     borderRadius: 10,
-    marginTop: 5,
     padding: 10,
   },
   title: {

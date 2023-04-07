@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import {COLORS} from '../../colors/Colors';
 
 export default StyleSheet.create({
@@ -39,6 +39,6 @@ export default StyleSheet.create({
     fontSize: 14,
   },
   space: {
-    paddingVertical: 140,
+    paddingVertical: Dimensions.get('window').height / 8,
   },
 });

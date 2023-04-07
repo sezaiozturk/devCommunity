@@ -4,7 +4,7 @@ import {COLORS} from '../../colors/Colors';
 export default StyleSheet.create({
   container: {
     marginHorizontal: 10,
-    marginBottom: 25,
+    marginBottom: 30,
   },
   title: {
     color: COLORS.gray300,
@@ -20,5 +20,6 @@ export default StyleSheet.create({
     borderWidth: 1,
     fontSize: 14,
     padding: 10,
+    maxHeight: 200,
   },
 });
