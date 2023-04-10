@@ -2,16 +2,17 @@ import {StyleSheet} from 'react-native';
 import {COLORS} from '../../assets/colors/Colors';
 
 export default StyleSheet.create({
-  container: {
-    backgroundColor: COLORS.orange100,
-    marginHorizontal: 10,
+  accountContentContainer: {
     alignItems: 'center',
-    borderRadius: 10,
-    padding: 10,
+    gap: 15,
   },
-  title: {
-    color: COLORS.gray200,
+  accountTitle: {
+    color: COLORS.gray400,
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 13,
+  },
+  accountIcon: {
+    width: 30,
+    height: 30,
   },
 });

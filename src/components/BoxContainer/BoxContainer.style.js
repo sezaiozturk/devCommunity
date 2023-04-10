@@ -1,12 +1,12 @@
-import { StyleSheet } from "react-native";
-import { COLORS } from "../../colors/Colors";
+import {StyleSheet} from 'react-native';
+import {COLORS} from '../../assets/colors/Colors';
 
 export default StyleSheet.create({
-    container:{
-        backgroundColor:COLORS.black100,
-        borderTopRightRadius:20,
-        borderTopLeftRadius:20,
-        paddingBottom:80,
-        paddingTop:30,
-    }
-})
+  container: {
+    backgroundColor: COLORS.black100,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    paddingBottom: 80,
+    paddingTop: 30,
+  },
+});

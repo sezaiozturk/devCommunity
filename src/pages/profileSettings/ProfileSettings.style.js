@@ -1,5 +1,5 @@
 import {Dimensions, StyleSheet} from 'react-native';
-import {COLORS} from '../../colors/Colors';
+import {COLORS} from '../../assets/colors/Colors';
 
 export default StyleSheet.create({
   container: {
@@ -14,11 +14,13 @@ export default StyleSheet.create({
   },
   imageCircle: {
     backgroundColor: COLORS.gray200,
+    borderColor: COLORS.gray300,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 50,
+    borderRadius: 100,
     marginBottom: 15,
-    height: 100,
-    width: 100,
+    borderWidth: 1,
+    height: 200,
+    width: 200,
   },
 });

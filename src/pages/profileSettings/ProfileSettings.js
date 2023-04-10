@@ -7,24 +7,60 @@ import {
   SafeAreaView,
   TouchableHighlight,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './ProfileSettings.style';
-import Icon from 'react-native-vector-icons/';
 import {Formik} from 'formik';
 import Input from '../../components/Input';
 import Button from '../../components/Button/Button';
+import Dropdown from '../../components/Dropdown';
+import MultipleDropdown from '../../components/MultipleDropdown';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
 const ProfileSettings = () => {
-  function handleSave(values) {
-    console.log(values);
+  const currentMemberUid = auth().currentUser.uid;
+  function handleSave({userName, fullName, accounts, biography}) {
+    firestore()
+      .collection('Members')
+      .doc(auth().currentUser.uid)
+      .set({
+        currentMemberUid,
+        userName,
+        fullName,
+        department,
+        communities,
+        accounts,
+        biography,
+      })
+      .then(() => {
+        console.log('User added!');
+      });
   }
+  const departmentsData = [
+    {key: '1', value: 'Bilgisayar Mühendisliği'},
+    {key: '2', value: 'Yazılım Mühendisliği'},
+    {key: '3', value: 'Makine Mühendisliği'},
+    {key: '4', value: 'Endüstri Mühendisliği'},
+    {key: '5', value: 'Elektrik-Elektronik Mühendisliği'},
+    {key: '6', value: 'Bilgisayar Programcılığı'},
+    {key: '7', value: 'Diğer'},
+  ];
+  const communitiesData = [
+    {key: '1', value: 'Yazılım Geliştirme Topluluğu'},
+    {key: '2', value: 'Bilişim Topluluğu'},
+    {key: '3', value: 'Raclab'},
+  ];
+
+  const [department, setDepartment] = useState('');
+  const [communities, setCommunities] = useState([]);
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <View style={styles.imageContainer}>
           <TouchableHighlight onPress={() => console.log('çalıştı')}>
             <View style={styles.imageCircle}>
-              <Image source={require('../../icons/userPhoto.png')} />
+              <Image source={require('../../assets/icons/userPhoto.png')} />
             </View>
           </TouchableHighlight>
         </View>
@@ -32,8 +68,6 @@ const ProfileSettings = () => {
           initialValues={{
             userName: '',
             fullName: '',
-            department: '',
-            communities: '',
             accounts: '',
             biography: '',
           }}
@@ -52,18 +86,16 @@ const ProfileSettings = () => {
                 value={values.fullName}
                 onChangeText={handleChange('fullName')}
               />
-              <Input
+              <Dropdown
+                data={departmentsData}
                 title={'Department'}
-                placeholder={'Enter your department'}
-                value={values.department}
-                onChangeText={handleChange('department')}
+                setSelected={val => setDepartment(val)}
               />
-              <Input
+              <MultipleDropdown
+                data={communitiesData}
                 title={'Communities'}
-                placeholder={'Enter your communities'}
-                value={values.communities}
-                onChangeText={handleChange('communities')}
-                multiline
+                placeholder={'Select your communities'}
+                setSelected={val => setCommunities(val)}
               />
               <Input
                 title={'Accounts'}

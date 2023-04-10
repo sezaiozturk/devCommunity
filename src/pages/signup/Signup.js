@@ -72,7 +72,7 @@ const Signup = ({navigation}) => {
             <View style={styles.logoContainer}>
               <View style={styles.iconContainer}>
                 <Image
-                  source={require('../../icons/google.png')}
+                  source={require('../../assets/icons/userPhoto.png')}
                   style={styles.logo}
                 />
               </View>

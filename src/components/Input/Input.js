@@ -1,7 +1,7 @@
 import {View, Text, TextInput} from 'react-native';
 import React from 'react';
 import styles from './Input.style';
-import {COLORS} from '../../colors/Colors';
+import {COLORS} from '../../assets/colors/Colors';
 
 const Input = ({
   title,

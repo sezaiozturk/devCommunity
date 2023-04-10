@@ -51,7 +51,7 @@ const Login = ({navigation}) => {
             <View style={styles.logoContainer}>
               <View style={styles.iconContainer}>
                 <Image
-                  source={require('../../icons/google.png')}
+                  source={require('../../assets/icons/google.png')}
                   style={styles.logo}
                 />
               </View>
