@@ -21,7 +21,7 @@ const Dropdown = ({data, title, placeholder, setSelected}) => {
       </Text>
       <SelectList
         data={data}
-        save="value"
+        save="key"
         setSelected={setSelected}
         placeholder={placeholder}
         inputStyles={{

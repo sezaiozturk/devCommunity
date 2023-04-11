@@ -7,7 +7,7 @@ import {
   SafeAreaView,
   TouchableHighlight,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './ProfileSettings.style';
 import {Formik} from 'formik';
 import Input from '../../components/Input';
@@ -16,49 +16,70 @@ import Dropdown from '../../components/Dropdown';
 import MultipleDropdown from '../../components/MultipleDropdown';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
+import {MultipleSelectList} from 'react-native-dropdown-select-list';
 
-const ProfileSettings = () => {
-  const currentMemberUid = auth().currentUser.uid;
+const ProfileSettings = ({navigation}) => {
+  const [department, setDepartment] = useState([]);
+  const [communities, setCommunities] = useState([]);
+  const [selectedCommunities, setSelectedCommunities] = useState([]);
+  const [selectedDepartment, setSelectedDepartment] = useState([]);
+
   function handleSave({userName, fullName, accounts, biography}) {
     firestore()
       .collection('Members')
       .doc(auth().currentUser.uid)
       .set({
-        currentMemberUid,
         userName,
         fullName,
-        department,
-        communities,
+        selectedDepartment,
+        selectedCommunities,
         accounts,
         biography,
       })
       .then(() => {
-        console.log('User added!');
+        navigation.navigate('MemberTab');
       });
   }
-  const departmentsData = [
-    {key: '1', value: 'Bilgisayar Mühendisliği'},
-    {key: '2', value: 'Yazılım Mühendisliği'},
-    {key: '3', value: 'Makine Mühendisliği'},
-    {key: '4', value: 'Endüstri Mühendisliği'},
-    {key: '5', value: 'Elektrik-Elektronik Mühendisliği'},
-    {key: '6', value: 'Bilgisayar Programcılığı'},
-    {key: '7', value: 'Diğer'},
-  ];
-  const communitiesData = [
-    {key: '1', value: 'Yazılım Geliştirme Topluluğu'},
-    {key: '2', value: 'Bilişim Topluluğu'},
-    {key: '3', value: 'Raclab'},
-  ];
-
-  const [department, setDepartment] = useState('');
-  const [communities, setCommunities] = useState([]);
+  async function getCommunities() {
+    let arr = [];
+    firestore()
+      .collection('Communities')
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(documentSnapshot => {
+          arr.push({
+            key: documentSnapshot.id,
+            value: documentSnapshot.data().name,
+          });
+        });
+        setCommunities(arr);
+      });
+  }
+  async function getDepartment() {
+    let arr = [];
+    firestore()
+      .collection('Departments')
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(documentSnapshot => {
+          arr.push({
+            key: documentSnapshot.id,
+            value: documentSnapshot.data().department,
+          });
+        });
+        setDepartment(arr);
+      });
+  }
+  useEffect(() => {
+    getCommunities();
+    getDepartment();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <View style={styles.imageContainer}>
-          <TouchableHighlight onPress={() => console.log('çalıştı')}>
+          <TouchableHighlight onPress={() => null}>
             <View style={styles.imageCircle}>
               <Image source={require('../../assets/icons/userPhoto.png')} />
             </View>
@@ -87,15 +108,15 @@ const ProfileSettings = () => {
                 onChangeText={handleChange('fullName')}
               />
               <Dropdown
-                data={departmentsData}
+                data={department}
                 title={'Department'}
-                setSelected={val => setDepartment(val)}
+                setSelected={val => setSelectedDepartment(val)}
               />
               <MultipleDropdown
-                data={communitiesData}
+                data={communities}
                 title={'Communities'}
                 placeholder={'Select your communities'}
-                setSelected={val => setCommunities(val)}
+                setSelected={val => setSelectedCommunities(val)}
               />
               <Input
                 title={'Accounts'}

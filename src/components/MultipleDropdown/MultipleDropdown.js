@@ -22,7 +22,7 @@ const MultipleDropdown = ({title, data, placeholder, setSelected}) => {
       <MultipleSelectList
         setSelected={setSelected}
         data={data}
-        save="value"
+        save="key"
         placeholder={placeholder}
         inputStyles={{
           color: COLORS.gray200,
