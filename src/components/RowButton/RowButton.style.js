@@ -13,6 +13,20 @@ export default StyleSheet.create({
     height: 50,
     width: 50,
   },
+  firstLetterContainer: {
+    backgroundColor: COLORS.gray300,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 25,
+    borderWidth: 3,
+    height: 50,
+    width: 50,
+  },
+  firstLetter: {
+    color: COLORS.gray200,
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
   contextContainer: {
     justifyContent: 'center',
     gap: 5,

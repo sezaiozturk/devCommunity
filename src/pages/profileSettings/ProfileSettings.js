@@ -19,6 +19,7 @@ import auth from '@react-native-firebase/auth';
 import {MultipleSelectList} from 'react-native-dropdown-select-list';
 
 const ProfileSettings = ({navigation}) => {
+  const uid = auth().currentUser.uid;
   const [department, setDepartment] = useState([]);
   const [communities, setCommunities] = useState([]);
   const [selectedCommunities, setSelectedCommunities] = useState([]);
@@ -29,6 +30,7 @@ const ProfileSettings = ({navigation}) => {
       .collection('Members')
       .doc(auth().currentUser.uid)
       .set({
+        uid,
         userName,
         fullName,
         selectedDepartment,

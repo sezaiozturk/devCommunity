@@ -24,6 +24,7 @@ export default StyleSheet.create({
   firstLetter: {
     color: COLORS.gray200,
     fontSize: 40,
+    fontWeight: 'bold',
   },
   headContentContainer: {
     justifyContent: 'center',

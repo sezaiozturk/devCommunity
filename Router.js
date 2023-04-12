@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -10,9 +10,18 @@ import ProfileSettings from './src/pages/profileSettings';
 import Profile from './src/pages/profile';
 import Member from './src/pages/members';
 import Gallery from './src/pages/gallery';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
+async function control() {
+  const member = await firestore()
+    .collection('Members')
+    .doc(auth().currentUser.uid)
+    .get();
+}
 
 const AuthStack = () => {
   return (
@@ -32,11 +41,7 @@ const MemberTab = () => {
         component={Post}
         options={{title: 'Activities'}}
       />
-      <Tab.Screen
-        name="MemberScreen"
-        component={Member}
-        options={{title: 'Members'}}
-      />
+      <Tab.Screen name="ProfileStack" component={ProfileStack} />
       <Tab.Screen
         name="GalleryScreen"
         component={Gallery}
@@ -50,12 +55,20 @@ const MemberTab = () => {
     </Tab.Navigator>
   );
 };
+const ProfileStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name="MemberScreen" component={Member} />
+      <Stack.Screen name="ProfileScreen" component={Profile} />
+    </Stack.Navigator>
+  );
+};
 const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="MemberTab" component={MemberTab} />
         <Stack.Screen name="AuthStack" component={AuthStack} />
+        <Stack.Screen name="MemberTab" component={MemberTab} />
       </Stack.Navigator>
     </NavigationContainer>
   );

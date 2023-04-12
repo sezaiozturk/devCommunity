@@ -8,13 +8,17 @@ import RowButton from '../../components/RowButton';
 import Account from '../../components/Account/Account';
 import {ScrollView} from 'react-native-gesture-handler';
 
-const Profile = () => {
-  const currentMember = auth().currentUser.uid;
+const Profile = ({route}) => {
+  let currentMember;
+  if (route.params) {
+    currentMember = route.params.uid;
+  } else {
+    currentMember = auth().currentUser.uid;
+  }
   const [member, setMember] = useState('');
   const [letter, setLetter] = useState('');
   const [department, setDepartment] = useState('');
   const [communities, setCommunities] = useState([]);
-  const arr = [];
 
   async function getMember() {
     setCommunities([]);
@@ -51,7 +55,7 @@ const Profile = () => {
 
   useEffect(() => {
     getMember();
-  }, []);
+  }, [currentMember]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -69,14 +73,23 @@ const Profile = () => {
         <View style={styles.accountContainer}>
           <Account
             title={'Twitter'}
-            logo={require('../../assets/icons/twitter.png')}
+            source={require('../../assets/icons/twitter.png')}
           />
           <Seperator vertical />
-          <Account title={'Instagram'} />
+          <Account
+            title={'Instagram'}
+            source={require('../../assets/icons/instagram.png')}
+          />
           <Seperator vertical />
-          <Account title={'Github'} />
+          <Account
+            title={'Github'}
+            source={require('../../assets/icons/github.png')}
+          />
           <Seperator vertical />
-          <Account title={'Linkedln'} />
+          <Account
+            title={'Linkedln'}
+            source={require('../../assets/icons/linkedln.png')}
+          />
         </View>
         <View style={styles.aboutContainer}>
           <Text style={styles.aboutTitle}>About me</Text>
@@ -89,7 +102,8 @@ const Profile = () => {
             data={communities}
             renderItem={({item}) => (
               <RowButton
-                image={'logo.jpeg'}
+                image
+                source={require('../../assets/images/logo.jpeg')}
                 title={item.name}
                 subTitle={item.school}
               />
