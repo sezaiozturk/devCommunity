@@ -1,4 +1,4 @@
-import {View, Text, SafeAreaView, FlatList} from 'react-native';
+import {View, Text, SafeAreaView, FlatList, Image} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import RowButton from '../../components/RowButton';
@@ -31,6 +31,7 @@ const Members = ({navigation}) => {
   useEffect(() => {
     getMembers();
   }, []);
+  let image = true;
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
@@ -40,6 +41,8 @@ const Members = ({navigation}) => {
             letter={letter[index]}
             title={item.fullName}
             subTitle={'@' + item.userName}
+            source={item.downloadUrl}
+            image={item.downloadUrl ? true : false}
             onPress={() =>
               navigation.navigate('ProfileScreen', {uid: item.uid})
             }

@@ -26,6 +26,11 @@ export default StyleSheet.create({
     fontSize: 40,
     fontWeight: 'bold',
   },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+  },
   headContentContainer: {
     justifyContent: 'center',
     alignItems: 'flex-start',

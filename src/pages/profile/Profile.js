@@ -1,4 +1,4 @@
-import {View, Text, SafeAreaView, FlatList} from 'react-native';
+import {View, Text, SafeAreaView, FlatList, Image} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
@@ -62,7 +62,11 @@ const Profile = ({route}) => {
       <ScrollView contentContainerStyle={{rowGap: 20}}>
         <View style={styles.headContainer}>
           <View style={styles.firstLetterContainer}>
-            <Text style={styles.firstLetter}>{letter}</Text>
+            {member.downloadUrl == null ? (
+              <Text style={styles.firstLetter}>{letter}</Text>
+            ) : (
+              <Image style={styles.image} source={{uri: member.downloadUrl}} />
+            )}
           </View>
           <View style={styles.headContentContainer}>
             <Text style={styles.fullName}>{member.fullName}</Text>
@@ -103,7 +107,7 @@ const Profile = ({route}) => {
             renderItem={({item}) => (
               <RowButton
                 image
-                source={require('../../assets/images/logo.jpeg')}
+                source={item.logo}
                 title={item.name}
                 subTitle={item.school}
               />

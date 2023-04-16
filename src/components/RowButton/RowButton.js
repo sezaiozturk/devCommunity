@@ -7,7 +7,7 @@ const RowButton = ({source, title, subTitle, onPress, image, letter}) => {
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
         {image ? (
-          <Image source={source} style={styles.image} />
+          <Image source={{uri: source}} style={styles.image} />
         ) : (
           <View style={styles.firstLetterContainer}>
             <Text style={styles.firstLetter}>{letter}</Text>

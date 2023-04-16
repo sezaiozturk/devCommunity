@@ -25,13 +25,15 @@ const ProfileSettings = ({navigation}) => {
   const [selectedCommunities, setSelectedCommunities] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState([]);
   const [photo, setPhoto] = useState(null);
-  let downloadUrl;
+  let downloadUrl = null;
 
   async function handleSave({userName, fullName, accounts, biography}) {
     const referance = storage().ref('profile/' + uuid.v1());
     try {
-      await referance.putFile(photo);
-      downloadUrl = await referance.getDownloadURL();
+      if (photo != null) {
+        await referance.putFile(photo);
+        downloadUrl = await referance.getDownloadURL();
+      }
 
       firestore()
         .collection('Members')
