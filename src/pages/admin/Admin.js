@@ -1,12 +1,4 @@
-import {
-  View,
-  Text,
-  SafeAreaView,
-  Image,
-  TouchableHighlight,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import {SafeAreaView, Image, TouchableOpacity, ScrollView} from 'react-native';
 import React, {useState} from 'react';
 import styles from './Admin.style';
 import ImagePicker from 'react-native-image-crop-picker';

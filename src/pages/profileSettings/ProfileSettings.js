@@ -1,11 +1,9 @@
 import {
   View,
-  Text,
-  Image,
   ScrollView,
-  StyleSheet,
   SafeAreaView,
   TouchableHighlight,
+  Image,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './ProfileSettings.style';
@@ -16,7 +14,9 @@ import Dropdown from '../../components/Dropdown';
 import MultipleDropdown from '../../components/MultipleDropdown';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
-import {MultipleSelectList} from 'react-native-dropdown-select-list';
+import ImagePicker from 'react-native-image-crop-picker';
+import uuid from 'react-native-uuid';
+import storage from '@react-native-firebase/storage';
 
 const ProfileSettings = ({navigation}) => {
   const uid = auth().currentUser.uid;
@@ -24,23 +24,34 @@ const ProfileSettings = ({navigation}) => {
   const [communities, setCommunities] = useState([]);
   const [selectedCommunities, setSelectedCommunities] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState([]);
+  const [photo, setPhoto] = useState(null);
+  let downloadUrl;
 
-  function handleSave({userName, fullName, accounts, biography}) {
-    firestore()
-      .collection('Members')
-      .doc(auth().currentUser.uid)
-      .set({
-        uid,
-        userName,
-        fullName,
-        selectedDepartment,
-        selectedCommunities,
-        accounts,
-        biography,
-      })
-      .then(() => {
-        navigation.navigate('MemberTab');
-      });
+  async function handleSave({userName, fullName, accounts, biography}) {
+    const referance = storage().ref('profile/' + uuid.v1());
+    try {
+      await referance.putFile(photo);
+      downloadUrl = await referance.getDownloadURL();
+
+      firestore()
+        .collection('Members')
+        .doc(auth().currentUser.uid)
+        .set({
+          uid,
+          userName,
+          fullName,
+          selectedDepartment,
+          selectedCommunities,
+          accounts,
+          biography,
+          downloadUrl,
+        })
+        .then(() => {
+          navigation.navigate('MemberTab');
+        });
+    } catch (error) {
+      console.log(error);
+    }
   }
   async function getCommunities() {
     let arr = [];
@@ -72,6 +83,14 @@ const ProfileSettings = ({navigation}) => {
         setDepartment(arr);
       });
   }
+  function selectPhoto() {
+    ImagePicker.openPicker({
+      cropping: true,
+    }).then(image => {
+      setPhoto(image.sourceURL);
+    });
+  }
+
   useEffect(() => {
     getCommunities();
     getDepartment();
@@ -81,9 +100,16 @@ const ProfileSettings = ({navigation}) => {
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <View style={styles.imageContainer}>
-          <TouchableHighlight onPress={() => null}>
+          <TouchableHighlight onPress={selectPhoto}>
             <View style={styles.imageCircle}>
-              <Image source={require('../../assets/icons/userPhoto.png')} />
+              {photo != null ? (
+                <Image style={styles.image} source={{uri: photo}} />
+              ) : (
+                <Image
+                  style={styles.imageContainer}
+                  source={require('../../assets/icons/userPhoto.png')}
+                />
+              )}
             </View>
           </TouchableHighlight>
         </View>

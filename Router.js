@@ -73,8 +73,8 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="MemberTab" component={MemberTab} />
         <Stack.Screen name="AuthStack" component={AuthStack} />
+        <Stack.Screen name="MemberTab" component={MemberTab} />
       </Stack.Navigator>
     </NavigationContainer>
   );

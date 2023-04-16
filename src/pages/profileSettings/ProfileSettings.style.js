@@ -23,4 +23,9 @@ export default StyleSheet.create({
     height: 200,
     width: 200,
   },
+  image: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+  },
 });
