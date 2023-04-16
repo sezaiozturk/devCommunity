@@ -10,6 +10,7 @@ import ProfileSettings from './src/pages/profileSettings';
 import Profile from './src/pages/profile';
 import Member from './src/pages/members';
 import Gallery from './src/pages/gallery';
+import Admin from './src/pages/admin';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
@@ -52,6 +53,11 @@ const MemberTab = () => {
         component={Profile}
         options={{title: 'Profile'}}
       />
+      <Tab.Screen
+        name="AdminScreen"
+        component={Admin}
+        options={{title: 'Post Share'}}
+      />
     </Tab.Navigator>
   );
 };
@@ -67,8 +73,8 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="AuthStack" component={AuthStack} />
         <Stack.Screen name="MemberTab" component={MemberTab} />
+        <Stack.Screen name="AuthStack" component={AuthStack} />
       </Stack.Navigator>
     </NavigationContainer>
   );

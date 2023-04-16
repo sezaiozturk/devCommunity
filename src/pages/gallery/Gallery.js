@@ -1,5 +1,5 @@
-import {View, Text} from 'react-native';
-import React from 'react';
+import {View, Text, Button, Image} from 'react-native';
+import React, {useState} from 'react';
 
 const Gallery = () => {
   return (

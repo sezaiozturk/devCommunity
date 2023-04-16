@@ -20,6 +20,6 @@ export default StyleSheet.create({
     borderWidth: 1,
     fontSize: 14,
     padding: 10,
-    maxHeight: 200,
+    maxHeight: 300,
   },
 });
