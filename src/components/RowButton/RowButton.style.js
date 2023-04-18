@@ -3,6 +3,11 @@ import {COLORS} from '../../assets/colors/Colors';
 
 export default StyleSheet.create({
   container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  leftContainer: {
     justifyContent: 'flex-start',
     flexDirection: 'row',
     padding: 10,
@@ -33,4 +38,8 @@ export default StyleSheet.create({
   },
   title: {color: COLORS.gray200, fontSize: 15, fontWeight: 'bold'},
   subTitle: {color: COLORS.gray500, fontSize: 12, fontWeight: 'bold'},
+  approve: {
+    color: COLORS.gray200,
+    padding: 10,
+  },
 });

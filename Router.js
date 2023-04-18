@@ -42,17 +42,13 @@ const MemberTab = () => {
         component={Post}
         options={{title: 'Activities'}}
       />
-      <Tab.Screen name="ProfileStack" component={ProfileStack} />
+      <Tab.Screen name="MemberStack" component={MemberStack} />
       <Tab.Screen
         name="GalleryScreen"
         component={Gallery}
         options={{title: 'Gallery'}}
       />
-      <Tab.Screen
-        name="ProfileScreen"
-        component={Profile}
-        options={{title: 'Profile'}}
-      />
+      <Tab.Screen name="ProfileStack" component={ProfileStack} />
       <Tab.Screen
         name="AdminScreen"
         component={Admin}
@@ -61,11 +57,23 @@ const MemberTab = () => {
     </Tab.Navigator>
   );
 };
+const MemberStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen
+        name="MemberScreen"
+        component={Member}
+        initialParams={{control: 0}}
+      />
+      <Stack.Screen name="ProfileScreen" component={Profile} />
+    </Stack.Navigator>
+  );
+};
 const ProfileStack = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="MemberScreen" component={Member} />
       <Stack.Screen name="ProfileScreen" component={Profile} />
+      <Stack.Screen name="MemberScreen" component={Member} />
     </Stack.Navigator>
   );
 };

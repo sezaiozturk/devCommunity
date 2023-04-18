@@ -7,14 +7,23 @@ import Button from '../../components/Button';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Formik} from 'formik';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 //npx react-native run-ios --simulator="iPhone 14 Pro"
 
 const Login = ({navigation}) => {
   function handleLogin({email, password}) {
     auth()
       .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        navigation.navigate('ProfileSettingsScreen');
+      .then(async () => {
+        const control = await firestore()
+          .collection('Members')
+          .doc(auth().currentUser.uid)
+          .get();
+        if (control._data == undefined) {
+          navigation.navigate('ProfileSettingsScreen');
+        } else {
+          navigation.navigate('MemberTab');
+        }
       });
   }
   return (

@@ -9,6 +9,10 @@ export default StyleSheet.create({
   },
   headContainer: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  headLeftContainer: {
+    flexDirection: 'row',
   },
   firstLetterContainer: {
     backgroundColor: COLORS.gray300,
@@ -50,6 +54,10 @@ export default StyleSheet.create({
     color: COLORS.gray400,
     fontWeight: 'bold',
     fontSize: 15,
+  },
+  option: {
+    marginTop: 30,
+    marginRight: 10,
   },
   aboutContainer: {
     gap: 10,

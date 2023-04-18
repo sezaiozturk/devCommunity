@@ -4,8 +4,9 @@ import firestore from '@react-native-firebase/firestore';
 import RowButton from '../../components/RowButton';
 import styles from './Member.style';
 import Seperator from '../../components/Seperator';
+import auth from '@react-native-firebase/auth';
 
-const Members = ({navigation}) => {
+const Members = ({navigation, route}) => {
   const [member, setMember] = useState([]);
   const [letter, setLetter] = useState('');
 
@@ -21,6 +22,26 @@ const Members = ({navigation}) => {
         });
       });
   }
+  function getRequests() {
+    setMember([]);
+    firestore()
+      .collection('Friends')
+      .doc(auth().currentUser.uid)
+      .get()
+      .then(documentSnapshot => {
+        const requests = documentSnapshot._data.requestUid;
+        requests.forEach(element => {
+          firestore()
+            .collection('Members')
+            .doc(element)
+            .get()
+            .then(documentSnapshot => {
+              setMember(current => [...current, documentSnapshot._data]);
+              firstLetter(documentSnapshot._data);
+            });
+        });
+      });
+  }
   function firstLetter(member) {
     const memberName = member.fullName.split(' ');
     const length = memberName.length;
@@ -29,9 +50,12 @@ const Members = ({navigation}) => {
     setLetter(current => [...current, first + second]);
   }
   useEffect(() => {
-    getMembers();
+    if (route.params.control == 1) {
+      getRequests();
+    } else {
+      getMembers();
+    }
   }, []);
-  let image = true;
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
@@ -43,9 +67,25 @@ const Members = ({navigation}) => {
             subTitle={'@' + item.userName}
             source={item.downloadUrl}
             image={item.downloadUrl ? true : false}
+            control={route.params.control == 1 ? true : false}
             onPress={() =>
               navigation.navigate('ProfileScreen', {uid: item.uid})
             }
+            approve={async () => {
+              const friends = await firestore()
+                .collection('Friends')
+                .doc(item.uid)
+                .get();
+              const friendsList = friends._data.friendsUid;
+              friendsList.push(auth().currentUser.uid);
+              firestore()
+                .collection('Friends')
+                .doc(item.uid)
+                .update({
+                  friendsUid: friendsList,
+                })
+                .then(() => {});
+            }}
           />
         )}
         ItemSeparatorComponent={() => <Seperator />}

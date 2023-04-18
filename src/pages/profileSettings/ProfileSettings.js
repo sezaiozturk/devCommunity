@@ -49,7 +49,16 @@ const ProfileSettings = ({navigation}) => {
           downloadUrl,
         })
         .then(() => {
-          navigation.navigate('MemberTab');
+          firestore()
+            .collection('Friends')
+            .doc(auth().currentUser.uid)
+            .set({
+              friendsUid: [],
+              requestUid: [],
+            })
+            .then(() => {
+              navigation.navigate('MemberTab');
+            });
         });
     } catch (error) {
       console.log(error);
