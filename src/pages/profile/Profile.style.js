@@ -85,7 +85,7 @@ export default StyleSheet.create({
     fontSize: 15,
   },
   accountContainer: {
-    justifyContent: 'space-evenly',
     flexDirection: 'row',
+    marginHorizontal: 25,
   },
 });

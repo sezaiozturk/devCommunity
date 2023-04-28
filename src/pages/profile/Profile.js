@@ -24,6 +24,11 @@ import {COLORS} from '../../assets/colors/Colors';
 import Button from '../../components/Button';
 
 const Profile = ({navigation, route}) => {
+  const hesaplar = [
+    {title: 'instagram', source: require('../../assets/icons/instagram.png')},
+    {title: 'twitter', source: require('../../assets/icons/twitter.png')},
+  ];
+
   const [currentMember, setCurrentMember] = useState('');
   const [primary, setPrimary] = useState(true);
   const [security, setSecurity] = useState(false);
@@ -33,6 +38,7 @@ const Profile = ({navigation, route}) => {
   const [communities, setCommunities] = useState([]);
   const [status, setStatus] = useState('Follow');
   const [active, setActive] = useState(false);
+  const [accounts, setAccounts] = useState([]);
 
   async function getMember() {
     setCommunities([]);
@@ -40,10 +46,21 @@ const Profile = ({navigation, route}) => {
       .collection('Members')
       .doc(currentMember)
       .get();
-    firstLetter(request._data);
-    setMember(request._data);
-    departmentConvert(request._data.selectedDepartment);
-    communityConvert(request._data.selectedCommunities);
+    if (request._data != undefined) {
+      setAccounts([]);
+      firstLetter(request._data);
+      setMember(request._data);
+      departmentConvert(request._data.selectedDepartment);
+      communityConvert(request._data.selectedCommunities);
+      let array = [];
+      request._data.accounts.split('\n').forEach(element => {
+        array.push({
+          title: element.split('.')[0].split('/')[2],
+          url: element,
+        });
+      });
+      setAccounts(array);
+    }
   }
   async function securityControl() {
     const request = await firestore()
@@ -51,7 +68,6 @@ const Profile = ({navigation, route}) => {
       .doc(auth().currentUser.uid)
       .get();
     request._data.friendsUid.forEach(element => {
-      console.log(element);
       if (!primary && currentMember == element) {
         setSecurity(true);
       }
@@ -102,8 +118,6 @@ const Profile = ({navigation, route}) => {
         setStatus('Requested');
         setActive(true);
       });
-
-    //console.log(list);
   }
 
   useEffect(() => {
@@ -166,7 +180,10 @@ const Profile = ({navigation, route}) => {
                         }
                         text="Requests"
                       />
-                      <MenuOption onSelect={() => alert(`Save`)} text="Save" />
+                      <MenuOption
+                        onSelect={console.log(accounts)}
+                        text="Save"
+                      />
                       <MenuOption onSelect={() => alert(`Save`)} text="Save" />
                     </MenuOptions>
                   </Menu>
@@ -181,24 +198,17 @@ const Profile = ({navigation, route}) => {
         {security && (
           <View style={{gap: 20}}>
             <View style={styles.accountContainer}>
-              <Account
-                title={'Twitter'}
-                source={require('../../assets/icons/twitter.png')}
-              />
-              <Seperator vertical />
-              <Account
-                title={'Instagram'}
-                source={require('../../assets/icons/instagram.png')}
-              />
-              <Seperator vertical />
-              <Account
-                title={'Github'}
-                source={require('../../assets/icons/github.png')}
-              />
-              <Seperator vertical />
-              <Account
-                title={'Linkedln'}
-                source={require('../../assets/icons/linkedln.png')}
+              <FlatList
+                data={accounts}
+                renderItem={({item, index}) => (
+                  <Account
+                    title={item.title}
+                    source={require(`../../assets/icons/instagram.png`)}
+                    url={item.url}
+                  />
+                )}
+                ItemSeparatorComponent={<Seperator vertical />}
+                horizontal
               />
             </View>
             <View style={styles.aboutContainer}>

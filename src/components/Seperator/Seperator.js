@@ -8,6 +8,7 @@ const Seperator = ({vertical}) => {
       style={{
         backgroundColor: COLORS.gray400,
         width: 1,
+        marginHorizontal: 20,
       }}
     />
   ) : (
