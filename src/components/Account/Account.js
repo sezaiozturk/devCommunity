@@ -10,6 +10,18 @@ import React from 'react';
 import styles from './Account.style';
 
 const Account = ({title, source, url}) => {
+  var icon = '';
+  if (source == 'instagram') {
+    icon = require('../../assets/icons/instagram.png');
+  } else if (source == 'twitter') {
+    icon = require('../../assets/icons/twitter.png');
+  } else if (source == 'github') {
+    icon = require('../../assets/icons/github.png');
+  } else if (source == 'linkedln') {
+    icon = require('../../assets/icons/linkedln.png');
+  } else {
+    icon = require('../../assets/icons/coding.png');
+  }
   return (
     <View style={styles.accountContentContainer}>
       <Text style={styles.accountTitle}>{title}</Text>
@@ -26,7 +38,7 @@ const Account = ({title, source, url}) => {
             Alert.alert('Başarısız...');
           }
         }}>
-        <Image source={source} style={styles.accountIcon} />
+        <Image style={styles.accountIcon} source={icon} />
       </TouchableHighlight>
     </View>
   );

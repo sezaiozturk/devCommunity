@@ -57,7 +57,9 @@ const Profile = ({navigation, route}) => {
         array.push({
           title: element.split('.')[0].split('/')[2],
           url: element,
+          source: element.split('.')[0].split('/')[2],
         });
+        console.log(element.split('.')[0].split('/')[2]);
       });
       setAccounts(array);
     }
@@ -180,10 +182,7 @@ const Profile = ({navigation, route}) => {
                         }
                         text="Requests"
                       />
-                      <MenuOption
-                        onSelect={console.log(accounts)}
-                        text="Save"
-                      />
+                      <MenuOption onSelect={null} text="Save" />
                       <MenuOption onSelect={() => alert(`Save`)} text="Save" />
                     </MenuOptions>
                   </Menu>
@@ -203,7 +202,7 @@ const Profile = ({navigation, route}) => {
                 renderItem={({item, index}) => (
                   <Account
                     title={item.title}
-                    source={require(`../../assets/icons/instagram.png`)}
+                    source={item.source}
                     url={item.url}
                   />
                 )}
