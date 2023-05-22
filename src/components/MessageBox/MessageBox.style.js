@@ -24,19 +24,6 @@ export default {
     ...base_style,
     container: {
       ...base_style.container,
-      justifyContent: 'flex-end',
-    },
-    innerContainer: {
-      ...base_style.innerContainer,
-      borderColor: COLORS.gray,
-      marginRight: 10,
-      marginLeft: 50,
-    },
-  }),
-  secondary: StyleSheet.create({
-    ...base_style,
-    container: {
-      ...base_style.container,
       justifyContent: 'flex-start',
     },
     innerContainer: {
@@ -45,6 +32,19 @@ export default {
       marginRight: 50,
       marginLeft: 10,
       backgroundColor: COLORS.gray,
+    },
+  }),
+  secondary: StyleSheet.create({
+    ...base_style,
+    container: {
+      ...base_style.container,
+      justifyContent: 'flex-end',
+    },
+    innerContainer: {
+      ...base_style.innerContainer,
+      borderColor: COLORS.gray,
+      marginRight: 10,
+      marginLeft: 50,
     },
   }),
 };
