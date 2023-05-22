@@ -17,7 +17,7 @@ const Account = ({title, source, url}) => {
     icon = require('../../assets/icons/twitter.png');
   } else if (source == 'github') {
     icon = require('../../assets/icons/github.png');
-  } else if (source == 'linkedln') {
+  } else if (source == 'linkedin') {
     icon = require('../../assets/icons/linkedln.png');
   } else {
     icon = require('../../assets/icons/coding.png');

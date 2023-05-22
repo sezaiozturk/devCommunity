@@ -10,6 +10,7 @@ import ProfileSettings from './src/pages/profileSettings';
 import Profile from './src/pages/profile';
 import Member from './src/pages/members';
 import Gallery from './src/pages/gallery';
+import Chat from './src/pages/chat';
 import Admin from './src/pages/admin';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
@@ -47,6 +48,11 @@ const MemberTab = () => {
         name="GalleryScreen"
         component={Gallery}
         options={{title: 'Gallery'}}
+      />
+      <Tab.Screen
+        name="ChatScreen"
+        component={Chat}
+        options={{title: 'Chat'}}
       />
       <Tab.Screen name="ProfileStack" component={ProfileStack} />
       <Tab.Screen

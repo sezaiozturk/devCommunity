@@ -54,16 +54,18 @@ const Profile = ({navigation, route}) => {
       communityConvert(request._data.selectedCommunities);
       let array = [];
       request._data.accounts.split('\n').forEach(element => {
-        array.push({
-          title: element.split('.')[0].split('/')[2],
-          url: element,
-          source: element.split('.')[0].split('/')[2],
-        });
-        console.log(element.split('.')[0].split('/')[2]);
+        if (element != '') {
+          array.push({
+            title: element.split('https://')[1].split('.')[0],
+            url: element,
+            source: element.split('https://')[1].split('.')[0],
+          });
+        }
       });
       setAccounts(array);
     }
   }
+
   async function securityControl() {
     const request = await firestore()
       .collection('Friends')
