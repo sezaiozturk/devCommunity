@@ -17,24 +17,11 @@ const base_style = StyleSheet.create({
   messageContainer: {
     alignSelf: 'baseline',
   },
+  name: {color: COLORS.orange, fontWeight: 'bold'},
   message: {lineHeight: 20, color: COLORS.white},
 });
 export default {
   primary: StyleSheet.create({
-    ...base_style,
-    container: {
-      ...base_style.container,
-      justifyContent: 'flex-start',
-    },
-    innerContainer: {
-      ...base_style.innerContainer,
-      borderColor: COLORS.gray,
-      marginRight: 50,
-      marginLeft: 10,
-      backgroundColor: COLORS.gray,
-    },
-  }),
-  secondary: StyleSheet.create({
     ...base_style,
     container: {
       ...base_style.container,
@@ -45,6 +32,20 @@ export default {
       borderColor: COLORS.gray,
       marginRight: 10,
       marginLeft: 50,
+      backgroundColor: COLORS.gray,
+    },
+  }),
+  secondary: StyleSheet.create({
+    ...base_style,
+    container: {
+      ...base_style.container,
+      justifyContent: 'flex-start',
+    },
+    innerContainer: {
+      ...base_style.innerContainer,
+      borderColor: COLORS.gray,
+      marginRight: 50,
+      marginLeft: 10,
     },
   }),
 };
