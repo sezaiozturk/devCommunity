@@ -11,7 +11,6 @@ import MessageBox from '../../components/MessageBox';
 import styles from './Chat.style';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import {parseISO} from 'date-fns';
 
 const Chat = () => {
   const [message, setMessage] = useState('');
