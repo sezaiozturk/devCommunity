@@ -10,11 +10,10 @@ import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
-const Admin = route => {
+const Admin = ({route}) => {
   const [photo, setPhoto] = useState(null);
   const [comment, setComment] = useState('');
-  //const {pageId} = route.params;
-  let pageId = 1;
+  const {pageId} = route.params;
   let downloadUrl;
 
   async function selectPhoto() {
@@ -39,7 +38,7 @@ const Admin = route => {
         .set({
           downloadUrl,
           comment,
-          communityId: 'xd3iyfilasF16BEvJGfd',
+          communityId: auth().currentUser.uid,
           date: new Date().toISOString(),
         })
         .then(() => {});

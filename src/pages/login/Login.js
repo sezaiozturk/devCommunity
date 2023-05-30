@@ -12,19 +12,26 @@ import firestore from '@react-native-firebase/firestore';
 
 const Login = ({navigation}) => {
   function handleLogin({email, password}) {
-    auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(async () => {
-        const control = await firestore()
-          .collection('Members')
-          .doc(auth().currentUser.uid)
-          .get();
-        if (control._data == undefined) {
-          navigation.navigate('ProfileSettingsScreen');
-        } else {
-          navigation.navigate('MemberTab');
-        }
-      });
+    let x = email.split('@')[1];
+    if (x == 'outlook.com') {
+      auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(navigation.navigate('AdminStack'));
+    } else {
+      auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(async () => {
+          const control = await firestore()
+            .collection('Members')
+            .doc(auth().currentUser.uid)
+            .get();
+          if (control._data == undefined) {
+            navigation.navigate('ProfileSettingsScreen');
+          } else {
+            navigation.navigate('MemberTab');
+          }
+        });
+    }
   }
   return (
     <SafeAreaView style={styles.container}>

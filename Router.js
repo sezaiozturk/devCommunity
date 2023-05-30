@@ -35,6 +35,18 @@ const AuthStack = () => {
     </Stack.Navigator>
   );
 };
+const AdminStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen
+        name="AdminScreen"
+        component={Admin}
+        options={{title: 'Post Share'}}
+        initialParams={{pageId: 0}}
+      />
+    </Stack.Navigator>
+  );
+};
 const MemberTab = () => {
   return (
     <Tab.Navigator screenOptions={{headerShown: false}}>
@@ -56,9 +68,10 @@ const MemberTab = () => {
       />
       <Tab.Screen name="ProfileStack" component={ProfileStack} />
       <Tab.Screen
-        name="AdminScreen"
+        name="ShareScreen"
         component={Admin}
-        options={{title: 'Post Share'}}
+        options={{title: 'Gallery Share'}}
+        initialParams={{pageId: 1}}
       />
     </Tab.Navigator>
   );
@@ -88,6 +101,7 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="AuthStack" component={AuthStack} />
+        <Stack.Screen name="AdminStack" component={AdminStack} />
         <Stack.Screen name="MemberTab" component={MemberTab} />
       </Stack.Navigator>
     </NavigationContainer>

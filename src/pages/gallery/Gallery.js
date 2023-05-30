@@ -18,7 +18,6 @@ const Gallery = () => {
       .collection('Gallery')
       .onSnapshot(querySnapshot => {
         let x = [];
-
         querySnapshot.forEach(async documentSnapshot => {
           x.push(documentSnapshot.data());
         });
