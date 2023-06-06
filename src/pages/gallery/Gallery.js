@@ -20,6 +20,9 @@ const Gallery = () => {
         let x = [];
         querySnapshot.forEach(async documentSnapshot => {
           x.push(documentSnapshot.data());
+          x.sort(function (a, b) {
+            return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
+          });
         });
         setPhotos(x);
       });

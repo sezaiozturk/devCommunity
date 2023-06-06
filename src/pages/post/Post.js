@@ -25,6 +25,26 @@ const Post = () => {
         });
       });
   }
+  async function getPostRealTime() {
+    firestore()
+      .collection('Posts')
+      .onSnapshot(querySnapshot => {
+        let x = [];
+        querySnapshot.forEach(async documentSnapshot => {
+          let community = await convert(documentSnapshot.data().communityId);
+          const obj = {
+            ...documentSnapshot.data(),
+            community,
+          };
+          x.push(obj);
+          x.sort(function (a, b) {
+            return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
+          });
+        });
+        setPosts(x);
+      });
+  }
+
   async function convert(uid) {
     const community = await firestore()
       .collection('Communities')
@@ -34,8 +54,8 @@ const Post = () => {
   }
 
   useEffect(() => {
-    setPosts([]);
-    getPost();
+    //setPosts([]);
+    getPostRealTime();
   }, []);
   return (
     <SafeAreaView style={styles.container}>
