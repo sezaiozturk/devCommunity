@@ -6,12 +6,13 @@ import {
   FlatList,
   SafeAreaView,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './Gallery.style';
 import firestore from '@react-native-firebase/firestore';
 
-const Gallery = () => {
+const Gallery = ({navigation}) => {
   const [photos, setPhotos] = useState([]);
   useEffect(() => {
     firestore()
@@ -34,12 +35,17 @@ const Gallery = () => {
         data={photos}
         renderItem={({item}) => (
           <View style={{flex: 1, borderWidth: 10}}>
-            <Image
-              style={{width: Dimensions.get('window').width / 3, height: 100}}
-              source={{
-                uri: item.downloadUrl,
-              }}
-            />
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('ZoomScreen', {photo: item});
+              }}>
+              <Image
+                style={{width: Dimensions.get('window').width / 3, height: 100}}
+                source={{
+                  uri: item.downloadUrl,
+                }}
+              />
+            </TouchableOpacity>
           </View>
         )}
         numColumns={3}

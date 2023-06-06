@@ -12,6 +12,7 @@ import Member from './src/pages/members';
 import Gallery from './src/pages/gallery';
 import Chat from './src/pages/chat';
 import Admin from './src/pages/admin';
+import Zoom from './src/pages/zoom';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
@@ -47,6 +48,18 @@ const AdminStack = () => {
     </Stack.Navigator>
   );
 };
+const PhotoStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen
+        name="GalleryScreen"
+        component={Gallery}
+        options={{title: 'Gallery Share'}}
+      />
+      <Stack.Screen name="ZoomScreen" component={Zoom} />
+    </Stack.Navigator>
+  );
+};
 const MemberTab = () => {
   return (
     <Tab.Navigator screenOptions={{headerShown: false}}>
@@ -57,8 +70,8 @@ const MemberTab = () => {
       />
       <Tab.Screen name="MemberStack" component={MemberStack} />
       <Tab.Screen
-        name="GalleryScreen"
-        component={Gallery}
+        name="PhotoStack"
+        component={PhotoStack}
         options={{title: 'Gallery'}}
       />
       <Tab.Screen
